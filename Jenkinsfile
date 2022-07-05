@@ -9,7 +9,7 @@ pipeline {
    stage ('Maven Build') {
       steps {
         script {
-          mvn= tool (name: 'Maven', type: 'maven') + '/bin/mvn'
+          mvn= tool (name: 'maven-3.8.6', type: 'maven-3.8.6') + '/bin/mvn'
         }
         sh "${mvn} clean install"
       }
