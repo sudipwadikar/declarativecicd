@@ -2,7 +2,7 @@ def mvn
 pipeline {
   agent { label 'master' }
     tools {
-      maven 'Maven'
+      maven 'maven-3.8.6'
       jdk 'JAVA_HOME'
     }
   stages {
