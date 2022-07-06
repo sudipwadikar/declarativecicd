@@ -8,9 +8,6 @@ pipeline {
       maven 'maven-3.8.6'
       jdk 'java-11'
     }
-  environment {
-    SONAR_HOME = "${tool name: 'sonar-9.5', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
-  }  
   stages {
     stage('Artifactory_Configuration') {
       steps {
@@ -30,16 +27,15 @@ pipeline {
         }			                      
       }
     }	
-    stage('SonarQube_Analysis') {
-      steps {
-	    script {
-          scannerHome = tool 'sonar-scanner'
+    stage('SonarQube_Analysis'){
+            steps{
+                script{
+                withSonarQubeEnv(installationName: 'sonar-9.5', credentialsId: 'Jenkins-sonar-token'){
+                sh 'mvn sonar:sonar'        
+                }
+                }
+            }
         }
-        withSonarQubeEnv('sonar') {
-      	  sh """${scannerHome}/bin/sonar-scanner"""
-        }
-      }	
-    }	
 	stage('Quality_Gate') {
 	  steps {
 	    timeout(time: 1, unit: 'MINUTES') {
