@@ -9,7 +9,7 @@ pipeline {
       jdk 'java-11'
     }
   environment {
-    SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
+    SONAR_HOME = "${tool name: 'sonar-9.5', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
   }  
   stages {
     stage('Artifactory_Configuration') {
