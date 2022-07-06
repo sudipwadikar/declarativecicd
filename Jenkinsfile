@@ -6,7 +6,7 @@ pipeline {
   agent any
     tools {
       maven 'maven-3.8.6'
-      jdk 'JAVA_HOME'
+      jdk 'java-11'
     }
   environment {
     SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
