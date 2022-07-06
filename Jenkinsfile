@@ -27,6 +27,13 @@ pipeline {
         }			                      
       }
     }	
+	  
+    stage('Test_Maven') {
+	    steps {
+		  sh 'mvn test'			                     
+	    }
+	   }
+	  
     stage('SonarQube_Analysis'){
             steps{
                 script{
