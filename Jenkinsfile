@@ -8,6 +8,11 @@ pipeline {
       maven 'maven-3.8.6'
       jdk 'java-11'
     }
+    environment{
+        registry = '053334083296.dkr.ecr.us-east-1.amazonaws.com/testdatarepo'
+        registryCredential = 'jenkins-ecr-login'
+        dockerimage = ''
+    }	
   stages {
     stage('Artifactory_Configuration') {
       steps {
