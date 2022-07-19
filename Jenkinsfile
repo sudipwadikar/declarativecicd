@@ -56,6 +56,14 @@ pipeline {
 		  )
 		  }
 	  }
+	  stage ('Publish Build Info') {
+		  steps {
+		  	rtPublishBuildInfo (
+			 serverId:"Artifactory"
+			)
+		  }
+	  }
+	  
 	  
     stage('Test_Maven') {
 	    steps {
