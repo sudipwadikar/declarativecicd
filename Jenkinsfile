@@ -1,6 +1,6 @@
 def mvn
-def server = Artifactory.server 'artifactory'
-def rtMaven = Artifactory.newMavenBuild()
+//def server = Artifactory.server 'artifactory'
+//def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent any
@@ -10,7 +10,7 @@ pipeline {
     }
 
   stages {
-    stage('Artifactory_Configuration') {
+   /* stage('Artifactory_Configuration') {
       steps {
         script {
 		  rtMaven.tool = 'maven-3.8.6'
@@ -20,7 +20,8 @@ pipeline {
           buildInfo.env.capture = true
         }			                      
       }
-    }
+    } */
+	
     stage('Execute_Maven') {
 	  steps {
 	    script {
@@ -28,7 +29,18 @@ pipeline {
         }			                      
       }
     }	
-	  
+    stage('Server'){
+	  steps{
+	  rtServer (
+		id: "Artifactory",
+		url: 'http://3.239.38.74:8082/artifactory',
+		username: 'admin',
+		password: 'Welcome1$',
+		bypassProxy: true,
+		timeout: 300		  
+	  )
+	}
+    }	  
     stage('Test_Maven') {
 	    steps {
 		  sh 'mvn test'			                     
