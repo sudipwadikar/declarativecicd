@@ -40,7 +40,23 @@ pipeline {
 		timeout: 300		  
 	  )
 	}
-    }	  
+    }
+	  stage('Upload'){
+		  steps{
+		  rtUpload (
+		  serverId:"Artifactory",
+			  spec: '''{
+			  "files":[
+			  {
+			  "pattern":"*.war",
+			  "target": ""
+			  }
+			  ]
+			  }''',
+		  )
+		  }
+	  }
+	  
     stage('Test_Maven') {
 	    steps {
 		  sh 'mvn test'			                     
