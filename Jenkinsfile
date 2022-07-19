@@ -49,7 +49,7 @@ pipeline {
 			  "files":[
 			  {
 			  "pattern":"*.war",
-			  "target": ""
+			  "target": "helloworld-libs-snapshot"
 			  }
 			  ]
 			  }''',
