@@ -109,7 +109,7 @@ pipeline {
 	  stage('SSH to Server'){
 	  steps{
 		sshagent(credentials : ['EC2']){
-   		sh "ls -la"
+   		//sh "ls -la"
 		sh 'docker pull sudipwadikar/springtest:76'
 		sh 'docker run -d -p 8050:8050 --name SpringbootApp sudipwadikar/springtest:76'	
 		}	
