@@ -1,14 +1,6 @@
 def mvn
 //def server = Artifactory.server 'artifactory'
 //def rtMaven = Artifactory.newMavenBuild()
-environment {
-        AWS_ACCOUNT_ID="053334083296"
-        AWS_DEFAULT_REGION="us-east-1"
-        IMAGE_REPO_NAME="docker-demo"
-        IMAGE_TAG="v1"
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-    }
-
 def buildInfo
 pipeline {
   agent any
@@ -16,7 +8,13 @@ pipeline {
       maven 'maven-3.8.6'
       jdk 'java-11'
     }
-
+  environment {
+        AWS_ACCOUNT_ID="053334083296"
+        AWS_DEFAULT_REGION="us-east-1"
+        IMAGE_REPO_NAME="docker-demo"
+        IMAGE_TAG="v1"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+    }
   stages {
    /* stage('Artifactory_Configuration') {
       steps {
