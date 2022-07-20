@@ -1,6 +1,4 @@
 def mvn
-//def server = Artifactory.server 'artifactory'
-//def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent any
@@ -8,28 +6,8 @@ pipeline {
       maven 'maven-3.8.6'
       jdk 'java-11'
     }
-  /*environment {
-        AWS_ACCOUNT_ID="053334083296"
-        AWS_DEFAULT_REGION="us-east-1"
-        IMAGE_REPO_NAME="docker-demo"
-        IMAGE_TAG="v1"
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	//DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-raja')  
-    }*/
   stages {
-   /* stage('Artifactory_Configuration') {
-      steps {
-        script {
-		  rtMaven.tool = 'maven-3.8.6'
-		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
-		  buildInfo = Artifactory.newBuildInfo()
-		  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot', server: server
-          buildInfo.env.capture = true
-        }			                      
-      }
-    } */
-/*	
-    stage('Execute_Maven') {
+   /* stage('Execute_Maven') {
 	  steps {
 	    script {
 		  sh 'mvn clean package'
@@ -78,12 +56,11 @@ pipeline {
 	    }
 	    post {
                 always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
+             
                 }
               }
 	   }
-/*	  
-    stage('SonarQube_Analysis'){
+	stage('SonarQube_Analysis'){
             steps{
                 script{
                 withSonarQubeEnv(installationName: 'sonar-9.5', credentialsId: 'Jenkins-sonar-token'){
@@ -109,25 +86,8 @@ pipeline {
 	  steps{
           sh 'docker build -t sudipwadikar/springtest:$BUILD_NUMBER .'
       }
-  }*/
-	  
-  /*stage('Logging into AWS ECR') {
-            steps {
-                script {
-                sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-                }
-            }
-        }*/
-  /*stage('Docker Container'){
-    steps{
-      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
-	  sh 'docker login -u ${docker_user} -p ${docker_pass}'
-	  sh 'docker run -d -p 8050:8050 --name SpringbootApp sudipwadikar/springtest:$BUILD_NUMBER'
-	  }
-    }
-  } */
-	  
- /* // Uploading Docker images into AWS ECR
+  }	  
+// Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
      steps{
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
@@ -137,7 +97,7 @@ pipeline {
 		sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
         }
-      }	*/  
+      }*/
 	  stage('SSH to Server'){
 	  steps{
 		  sshagent(credentials : ['EC2']){
