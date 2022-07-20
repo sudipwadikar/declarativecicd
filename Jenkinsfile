@@ -108,11 +108,9 @@ pipeline {
       }	*/  
 	  stage('SSH to Server'){
 	  steps{
-		sshagent(credentials : ['50.16.155.25']){
-   		//sh "ls -la"
-		sh 'docker pull sudipwadikar/springtest:76'
-		sh 'docker run -d -p 8050:8050 --name SpringbootApp sudipwadikar/springtest:76'	
-		}	
+		sshagent(['50.16.155.25']){
+                sh "scp -o StrictHostKeyChecking=no /var/lib/docker/containers/* ec2-user@50.16.155.25:/opt/"
+                }
 	  }
 	}
 }	  
