@@ -109,7 +109,7 @@ pipeline {
 	  stage('SSH to Server'){
 	  steps{
 		sshagent(['Instance']) {
-			sh 'ssh ec2-user@50.16.155.25'	
+			sh 'ssh -i /home/ubuntu/.ssh/teraform ec2-user@50.16.155.25'	
 		}
                
 	}
