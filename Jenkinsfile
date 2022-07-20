@@ -7,7 +7,7 @@ pipeline {
       jdk 'java-11'
     }
   stages {
-    stage('Execute_Maven') {
+    /*stage('Execute_Maven') {
 	  steps {
 	    script {
 		  sh 'mvn clean package'
@@ -56,7 +56,6 @@ pipeline {
 	    }
 	    post {
                 always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
                 }
               }
 	   }
