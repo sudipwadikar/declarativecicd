@@ -8,14 +8,14 @@ pipeline {
       maven 'maven-3.8.6'
       jdk 'java-11'
     }
-  environment {
+  /*environment {
         AWS_ACCOUNT_ID="053334083296"
         AWS_DEFAULT_REGION="us-east-1"
         IMAGE_REPO_NAME="docker-demo"
         IMAGE_TAG="v1"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	//DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-raja')  
-    }
+    }*/
   stages {
    /* stage('Artifactory_Configuration') {
       steps {
@@ -108,7 +108,7 @@ pipeline {
   stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+          dockerImage = docker.build -t sudipwadikar/springtest:$BUILD_NUMBER ."
         }
       }
   }
@@ -135,9 +135,8 @@ pipeline {
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
 		 //sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
                 //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-		sh 'docker login -u ${docker_user} -p ${docker_pass}' 
-		sh 'docker tag "${IMAGE_REPO_NAME}:${IMAGE_TAG}" sudipwadikar/docker-demo:v1'      
-		sh "docker push ${IMAGE_REPO_NAME}:${IMAGE_TAG}"	 
+		sh 'docker login -u ${docker_user} -p ${docker_pass}'       
+		sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
         }
       }	  
