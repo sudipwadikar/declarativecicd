@@ -109,7 +109,7 @@ pipeline {
 	  stage('SSH to Server'){
 	  steps{
 		sshagent(['50.16.155.25']){
-                sh "scp -o StrictHostKeyChecking=no -i /tmp/cfdemo.pem /var/lib/docker/containers/* ec2-user@50.16.155.25:/opt/"
+                sh "scp -o StrictHostKeyChecking=no -i /tmp/cfdemo.pem /home/ubuntu/test123.txt  ec2-user@50.16.155.25:/tmp/"
                 }
 	  }
 	}
