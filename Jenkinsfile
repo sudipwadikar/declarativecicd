@@ -133,7 +133,17 @@ pipeline {
     stage('Pushing to ECR') {
      steps{    
          script {
-		 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) 
+		 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')])
+		 def user = env.docker_user
+                 def password = env.docker_pass
+		 composerAuth = """{
+                            "http-basic": {
+                                "hub.docker.com": {
+                                    "username": "${user}",
+                                    "password": "${password}"
+                                }
+                            }
+                        }"""
                 //sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
                 //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
 		sh 'docker login -u ${docker_user} -p ${docker_pass}' 
