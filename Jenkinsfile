@@ -138,5 +138,12 @@ pipeline {
          }
         }
       }	  
+	  stage('SSH to Server'){
+	  steps{
+		  sshagent(credentials : ['EC2']){
+		sh "ssh ec2-user@50.16.155.25"		  
+	  }
+	}
+}	  
   }	  	  
 }
