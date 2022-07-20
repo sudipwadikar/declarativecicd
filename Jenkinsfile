@@ -107,7 +107,7 @@ pipeline {
   }
   stage('Building image') {
 	  steps{
-          sh 'docker.build -t sudipwadikar/springtest:$BUILD_NUMBER .'
+          sh 'docker build -t sudipwadikar/springtest:$BUILD_NUMBER .'
       }
   }
 	  
