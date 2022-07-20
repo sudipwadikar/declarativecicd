@@ -7,7 +7,7 @@ pipeline {
       jdk 'java-11'
     }
   stages {
-   /* stage('Execute_Maven') {
+    stage('Execute_Maven') {
 	  steps {
 	    script {
 		  sh 'mvn clean package'
@@ -56,7 +56,7 @@ pipeline {
 	    }
 	    post {
                 always {
-             
+                    junit '**/target/surefire-reports/TEST-*.xml'
                 }
               }
 	   }
@@ -87,7 +87,16 @@ pipeline {
           sh 'docker build -t sudipwadikar/springtest:$BUILD_NUMBER .'
       }
   }	  
-// Uploading Docker images into AWS ECR
+  stage('Docker Container'){
+    steps{
+      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+	  sh 'docker login -u ${docker_user} -p ${docker_pass}'
+	  sh 'docker run -d -p 8050:8050 --name SpringbootApp sudipwadikar/springtest:$BUILD_NUMBER'
+	  }
+    }
+  }
+	  
+ /* // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
      steps{
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
@@ -97,10 +106,9 @@ pipeline {
 		sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
         }
-      }*/
+      }	*/  
 	  stage('SSH to Server'){
 	  steps{
-		  sshagent(credentials : ['EC2']){
 		sh "ssh ec2-user@50.16.155.25"		  
 	  }
 	}
