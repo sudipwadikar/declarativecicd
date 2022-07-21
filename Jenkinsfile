@@ -11,7 +11,8 @@ environment {
         AWS_DEFAULT_REGION="us-east-1"
         IMAGE_REPO_NAME="docker-demo"
         IMAGE_TAG="v1"
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"	
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+}
   stages {
 	stage('Submit Stack') {
             steps {
