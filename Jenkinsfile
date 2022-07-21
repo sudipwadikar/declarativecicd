@@ -114,7 +114,7 @@ environment {
     stage('Pushing to ECR') {
      steps{
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
-		 sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+		 sh "docker tag sudipwadikar/springtest:$BUILD_NUMBER ${REPOSITORY_URI}:$IMAGE_TAG"
                 sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
 		//sh 'docker login -u ${docker_user} -p ${docker_pass}'       
 		//sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
