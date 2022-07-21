@@ -7,7 +7,13 @@ pipeline {
       jdk 'java-11'
     }
   stages {
-    /*stage('Execute_Maven') {
+	stage('Submit Stack') {
+            steps {
+            sh "aws cloudformation create-stack --stack-name ec2sg --template-body file://ec2sg.yaml --region 'us-east-1'"    
+            //sh "aws cloudformation delete-stack --stack-name ec2sg --region 'us-east-1'"
+              }
+             }	  
+    stage('Execute_Maven') {
 	  steps {
 	    script {
 		  sh 'mvn clean package'
@@ -18,7 +24,7 @@ pipeline {
 	  steps{
 	  rtServer (
 		id: "Artifactory",
-		url: 'http://3.230.123.249:8082/artifactory',
+		url: 'http://50.17.169.114:8082/artifactory',
 		username: 'admin',
 		password: 'Welcome1$',
 		bypassProxy: true,
@@ -95,7 +101,7 @@ pipeline {
     }
   }
 	  
- /* // Uploading Docker images into AWS ECR
+  // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
      steps{
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
@@ -105,14 +111,14 @@ pipeline {
 		sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
         }
-      }	*/  
-	  stage('SSH to Server'){
+      }	 
+	/*  stage('SSH to Server'){
 	  steps{
 		sshagent(['Instance']) {
 			sh 'ssh -i /home/ubuntu/.ssh/teraform ec2-user@50.16.155.25'	
 		}
                
 	}
-}	  
+}*/	  
   }	  	  
 }
