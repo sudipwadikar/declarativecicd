@@ -16,8 +16,10 @@ environment {
   stages {
 	stage('Submit Stack') {
             steps {
-            //sh "aws cloudformation create-stack --stack-name ec2sg --template-body file://ec2sg.yaml --region 'us-east-1'"    
-            sh "aws cloudformation delete-stack --stack-name ec2sg --region 'us-east-1'"
+            //sh "aws cloudformation create-stack --stack-name ec2sg --template-body file://ec2sg.yaml --region 'us-east-1'"
+	    sh "aws cloudformation create-stack --stack-name arch --template-body file://Arch.yaml --region 'us-east-1'"    
+	    //sh "aws cloudformation delete-stack --stack-name arch --region 'us-east-1'"
+            //sh "aws cloudformation delete-stack --stack-name ec2sg --region 'us-east-1'"
               }
              }	  
     /*stage('Execute_Maven') {
