@@ -20,7 +20,7 @@ environment {
             //sh "aws cloudformation delete-stack --stack-name ec2sg --region 'us-east-1'"
               }
              }	  
-    stage('Execute_Maven') {
+    /*stage('Execute_Maven') {
 	  steps {
 	    script {
 		  sh 'mvn clean package'
@@ -68,9 +68,9 @@ environment {
 		  sh 'mvn test'			                     
 	    }
 	    post {
-                always {
-			 junit '**/target/surefire-reports/TEST-*.xml'
-                }
+                always {                                                 */
+	//		 junit '**/target/surefire-reports/TEST-*.xml'
+        /*        }
               }
 	   }
 	stage('SonarQube_Analysis'){
@@ -127,7 +127,7 @@ environment {
 		//sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
         }
-      }	 
+      }	*/ 
 	/*  stage('SSH to Server'){
 	  steps{
 		sshagent(['Instance']) {
