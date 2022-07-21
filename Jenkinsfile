@@ -115,7 +115,8 @@ environment {
      steps{
 	      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]){
 		 sh "docker tag sudipwadikar/springtest:$BUILD_NUMBER ${REPOSITORY_URI}:$IMAGE_TAG"
-                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+		 //sh aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 053334083296.dkr.ecr.us-east-1.amazonaws.com     
+                 sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
 		//sh 'docker login -u ${docker_user} -p ${docker_pass}'       
 		//sh "docker push sudipwadikar/springtest:$BUILD_NUMBER"	 
          }
